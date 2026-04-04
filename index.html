@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聖荷西好物購🇺🇸 - 美國精品代購</title>
+    <title>聖荷西好物購🇺🇸 - 全球精品代購</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -73,13 +73,12 @@
             box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* 實拍影音標籤 - 修正置中排版 */
         .video-hint {
             background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(4px);
             color: white;
             padding: 5px 12px;
-            border-radius: 100px; /* 改為更圓潤的藥丸型 */
+            border-radius: 100px; 
             font-size: 0.75rem;
             font-weight: 500;
             position: absolute;
@@ -87,17 +86,11 @@
             left: 12px;
             z-index: 20;
             display: flex;
-            align-items: center; /* 垂直置中 */
-            justify-content: center; /* 水平置中 */
-            gap: 6px; /* 圖示與文字間距 */
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px; 
             pointer-events: none;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .video-hint i {
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
         }
 
         @keyframes marquee {
@@ -157,7 +150,7 @@
         <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div id="loading-state" class="col-span-full text-center py-24 text-gray-400">
                 <div class="animate-bounce mb-4 text-4xl">🌸</div>
-                <p class="text-sm font-medium tracking-widest">正在從美國同步最新好物...</p>
+                <p class="text-sm font-medium tracking-widest">正在為你同步全球最新好物...</p>
             </div>
         </div>
     </main>
@@ -165,18 +158,37 @@
     <footer class="text-center py-12 bg-white/50 mt-10 text-gray-400 text-xs leading-relaxed border-t border-pink-50">
         <div class="mb-4 text-pink-200 text-xl">✨ ✨ ✨</div>
         <p class="font-bold text-gray-600 text-sm mb-1">聖荷西好物購🇺🇸</p>
-        <p class="mb-4">美國精品平行輸入・品質嚴選・100% 正品保障</p>
-        <div class="bg-white mx-auto max-w-xs p-4 rounded-2xl shadow-sm border border-pink-50 text-gray-500">
-            <p class="font-bold mb-1"><i class="fas fa-store mr-1 text-pink-400"></i> 長春路總店</p>
-            <p>台北市長春路380號1樓</p>
+        <p class="mb-4">精品代購・嚴選品質・100% 正品保障</p>
+        <div class="bg-white mx-auto max-w-xs p-4 rounded-2xl shadow-sm border border-pink-50 text-gray-500 mb-6 transition-all hover:border-pink-200">
+            <a href="https://www.google.com/maps/search/?api=1&query=台北市長春路380號1樓" target="_blank" class="block group">
+                <p class="font-bold mb-1 text-pink-500 group-hover:text-pink-600"><i class="fas fa-map-marker-alt mr-1"></i> 長春路總店</p>
+                <p class="group-hover:text-gray-700">台北市長春路380號1樓</p>
+                <p class="text-[9px] text-pink-300 mt-1 italic">點擊開啟地圖</p>
+            </a>
+        </div>
+        <div class="max-w-md mx-auto px-6 text-[10px] text-gray-400 opacity-70 leading-normal space-y-1">
+            <p>※ 本網頁所載產品圖示及影音僅供導覽參考，實際到貨細節將依原廠或採購專櫃實物為準。</p>
+            <p>※ 若本網頁相關圖文內容有任何權利疑義，敬請透過私訊與我們聯繫，我們將立即協助處理。</p>
         </div>
     </footer>
 
     <script>
-        const PRODUCT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQw6SB2ardXjIr4Sh0IhT8hnKkpUVeKDJiq-OI22riSHc8CX00K-f76fVUpyMjSNYynP06Pfhp40GJ9/pub?gid=0&single=true&output=csv';
-        const MARQUEE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQw6SB2ardXjIr4Sh0IhT8hnKkpUVeKDJiq-OI22riSHc8CX00K-f76fVUpyMjSNYynP06Pfhp40GJ9/pub?gid=664591331&single=true&output=csv';
-        // 更新後的預設私訊連結
-        const DEFAULT_BUY_URL = 'https://www.facebook.com/groups/183038802197503/';
+        /**
+         * Core Internal Config
+         */
+        const _0x4a2c = [104, 116, 116, 112, 115, 58, 47, 47, 100, 111, 99, 115, 46, 103, 111, 111, 103, 108, 101, 46, 99, 111, 109, 47, 115, 112, 114, 101, 97, 100, 115, 104, 101, 101, 116, 115, 47, 100, 47, 101, 47];
+        const _0x91ef = "2PACX-1vQw6SB2ardXjIr4Sh0IhT8hnKkpUVeKDJiq-OI22riSHc8CX00K-f76fVUpyMjSNYynP06Pfhp40GJ9";
+        const _0x1c8b = "/pub?gid=";
+        const _0x55d1 = "&single=true&output=csv";
+
+        function _0x3e12(_0xaf1) {
+            const _0xb12 = _0x4a2c.map(_0x22 => String.fromCharCode(_0x22)).join('');
+            return _0xb12 + _0x91ef + _0x1c8b + _0xaf1 + _0x55d1;
+        }
+
+        const _DS_0 = _0x3e12("0");
+        const _DS_M = _0x3e12("664591331");
+        const _FB_URL = 'https://www.facebook.com/groups/183038802197503/';
 
         let allProducts = [];
 
@@ -231,16 +243,24 @@
 
         async function init() {
             try {
-                const marqueeResponse = await fetch(`${MARQUEE_CSV_URL}&t=${Date.now()}`);
-                const mCsvText = await marqueeResponse.text();
-                const mRows = parseGenericCSV(mCsvText);
-                const msgs = mRows.map(r => r[0]?.trim()).filter(m => m);
-                if (msgs.length > 0) {
-                    document.getElementById('marquee-text').innerText = `🌸 ${msgs.join('　✨　')} 🌸`;
-                    document.getElementById('marquee-container').classList.remove('hidden');
-                }
+                const timestamp = Date.now();
+                
+                try {
+                    const mRes = await fetch(`${_DS_M}&t=${timestamp}`);
+                    if (mRes.ok) {
+                        const mText = await mRes.text();
+                        const mRows = parseGenericCSV(mText);
+                        const msgs = mRows.map(r => r[0]?.trim()).filter(m => m);
+                        if (msgs.length > 0) {
+                            document.getElementById('marquee-text').innerText = `🌸 ${msgs.join('　✨　')} 🌸`;
+                            document.getElementById('marquee-container').classList.remove('hidden');
+                        }
+                    }
+                } catch(e) {}
 
-                const response = await fetch(`${PRODUCT_CSV_URL}&t=${Date.now()}`);
+                const response = await fetch(`${_DS_0}&t=${timestamp}`);
+                if (!response.ok) throw new Error("Internal Service Error");
+                
                 const csvText = await response.text();
                 const rows = parseGenericCSV(csvText);
                 
@@ -268,7 +288,7 @@
                     
                     for (let j = 11; j < row.length; j++) {
                         const url = row[j]?.trim();
-                        if (url && url.startsWith('http')) item.images.push(url);
+                        if (url && (url.startsWith('http'))) item.images.push(url);
                     }
                     allProducts.push(item);
                 }
@@ -283,7 +303,9 @@
                 if (allProducts.some(p => p.isSale)) document.getElementById('btn-sale').classList.remove('hidden');
                 updateBrandFilters(allProducts);
                 renderProducts(allProducts);
-            } catch (error) { console.error(error); }
+            } catch (error) { 
+                document.getElementById('product-container').innerHTML = `<div class="col-span-full text-center py-24 text-gray-400">系統服務同步中，請稍候。</div>`;
+            }
         }
 
         function updateBrandFilters(products) {
@@ -326,14 +348,13 @@
 
         function renderProducts(products) {
             const container = document.getElementById('product-container');
-            container.innerHTML = products.length === 0 ? `<div class="col-span-full text-center py-20 text-gray-400 text-sm">目前沒有商品喔！</div>` : '';
+            container.innerHTML = products.length === 0 ? `<div class="col-span-full text-center py-20 text-gray-400 text-sm">搜尋範圍內暫無商品。</div>` : '';
 
             products.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 const finalPrice = p.specialPrice || p.salePrice;
-                const targetLink = (p.postUrl && p.postUrl !== '') ? p.postUrl : DEFAULT_BUY_URL;
-                
+                const targetLink = (p.postUrl && p.postUrl !== '') ? p.postUrl : _FB_URL;
                 const hasVideo = p.postUrl && p.postUrl !== '';
 
                 const imagesHTML = p.images.length > 0 
