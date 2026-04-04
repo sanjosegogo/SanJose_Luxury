@@ -46,6 +46,7 @@
             object-fit: cover;
             aspect-ratio: 1/1;
             background-color: #f3f4f6;
+            cursor: pointer;
         }
 
         .brand-badge {
@@ -68,11 +69,37 @@
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 10;
+            z-index: 20;
             box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* 跑馬燈 */
+        /* 實拍影音標籤 - 修正置中排版 */
+        .video-hint {
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 100px; /* 改為更圓潤的藥丸型 */
+            font-size: 0.75rem;
+            font-weight: 500;
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            z-index: 20;
+            display: flex;
+            align-items: center; /* 垂直置中 */
+            justify-content: center; /* 水平置中 */
+            gap: 6px; /* 圖示與文字間距 */
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .video-hint i {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+        }
+
         @keyframes marquee {
             0% { transform: translateX(100vw); }
             100% { transform: translateX(-100%); }
@@ -83,7 +110,6 @@
             animation: marquee 25s linear infinite;
         }
 
-        /* 選中狀態樣式修正：文字變白加粗 */
         .brand-btn-active {
             background-color: #ec4899 !important;
             color: #ffffff !important;
@@ -92,7 +118,6 @@
             box-shadow: 0 4px 6px -1px rgba(236, 72, 153, 0.3) !important;
         }
 
-        /* 特賣按鈕專屬色 */
         .sale-filter-btn {
             background-color: #fff1f2;
             color: #e11d48;
@@ -102,12 +127,10 @@
 </head>
 <body class="flower-bg">
 
-    <!-- 跑馬燈公告欄 -->
     <div id="marquee-container" class="bg-pink-500 text-white py-2 overflow-hidden hidden shadow-sm">
         <div class="marquee-content text-sm font-bold" id="marquee-text"></div>
     </div>
 
-    <!-- 頁首 -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-pink-100">
         <div class="max-w-screen-md mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
@@ -123,7 +146,6 @@
         </div>
     </header>
 
-    <!-- 品牌標籤快速導覽：設定 flex-wrap 讓它在手機版自動折行 -->
     <div class="max-w-screen-md mx-auto px-4 mt-6">
         <div id="brand-filter" class="flex flex-wrap gap-2 pb-2">
             <button onclick="filterBySale()" id="btn-sale" class="brand-btn sale-filter-btn px-4 py-1.5 rounded-full text-xs font-bold shadow-sm transition-all hidden">🔥 限時特賣</button>
@@ -131,7 +153,6 @@
         </div>
     </div>
 
-    <!-- 商品列表 -->
     <main class="max-w-screen-md mx-auto px-4 py-4">
         <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div id="loading-state" class="col-span-full text-center py-24 text-gray-400">
@@ -154,7 +175,8 @@
     <script>
         const PRODUCT_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQw6SB2ardXjIr4Sh0IhT8hnKkpUVeKDJiq-OI22riSHc8CX00K-f76fVUpyMjSNYynP06Pfhp40GJ9/pub?gid=0&single=true&output=csv';
         const MARQUEE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQw6SB2ardXjIr4Sh0IhT8hnKkpUVeKDJiq-OI22riSHc8CX00K-f76fVUpyMjSNYynP06Pfhp40GJ9/pub?gid=664591331&single=true&output=csv';
-        const DIRECT_BUY_URL = 'https://www.facebook.com/groups/183038802197503/user/100015601080946/';
+        // 更新後的預設私訊連結
+        const DEFAULT_BUY_URL = 'https://www.facebook.com/groups/183038802197503/';
 
         let allProducts = [];
 
@@ -165,11 +187,17 @@
             return 'NT$ ' + num.toLocaleString();
         }
 
-        function formatDiscount(val) {
-            if (!val || val === '0' || val === '0.00%' || val === '0%') return null;
+        function parseDiscountValue(val) {
+            if (!val || val === '0' || val === '0.00%' || val === '0%') return 999;
             let num = parseFloat(val.toString().replace('%', ''));
-            if (isNaN(num) || num === 0) return null;
+            if (isNaN(num) || num === 0) return 999;
             if (num < 1) num = num * 100;
+            return num;
+        }
+
+        function formatDiscountText(val) {
+            const num = parseDiscountValue(val);
+            if (num === 999) return null;
             return Math.floor(num) + '折';
         }
 
@@ -217,33 +245,40 @@
                 const rows = parseGenericCSV(csvText);
                 
                 allProducts = [];
-                // 根據截圖欄位順序：
-                // 0:編號, 1:上架狀態, 2:特賣, 3:折數, 4:名稱, 5:專櫃價, 6:特價(一般), 7:特賣金額, 8:尺寸, 9:品牌, 10+:圖片
                 for(let i = 1; i < rows.length; i++) {
                     const row = rows[i];
-                    if (!row[4]) continue; // 沒名稱就跳過
-                    if (row[1]?.trim().toUpperCase() !== 'TRUE') continue; // 未上架不顯示
+                    if (!row[4]) continue; 
+                    if (row[1]?.trim().toUpperCase() !== 'TRUE') continue; 
 
                     const item = {
                         id: row[0]?.trim(),
                         isSale: row[2]?.trim() !== '',
                         saleLabel: row[2]?.trim(),
-                        discount: formatDiscount(row[3]),
+                        discountVal: parseDiscountValue(row[3]),
+                        discount: formatDiscountText(row[3]),
                         name: row[4]?.trim(),
                         marketPrice: formatPrice(row[5]),
                         salePrice: formatPrice(row[6]),
                         specialPrice: formatPrice(row[7]),
                         size: row[8]?.trim(),
                         brand: row[9]?.trim() || '其他',
+                        postUrl: row[10]?.trim(),
                         images: []
                     };
                     
-                    for (let j = 10; j < row.length; j++) {
+                    for (let j = 11; j < row.length; j++) {
                         const url = row[j]?.trim();
                         if (url && url.startsWith('http')) item.images.push(url);
                     }
                     allProducts.push(item);
                 }
+
+                allProducts.sort((a, b) => {
+                    if (a.isSale && !b.isSale) return -1;
+                    if (!a.isSale && b.isSale) return 1;
+                    if (a.isSale && b.isSale) return a.discountVal - b.discountVal;
+                    return 0;
+                });
 
                 if (allProducts.some(p => p.isSale)) document.getElementById('btn-sale').classList.remove('hidden');
                 updateBrandFilters(allProducts);
@@ -297,15 +332,20 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 const finalPrice = p.specialPrice || p.salePrice;
+                const targetLink = (p.postUrl && p.postUrl !== '') ? p.postUrl : DEFAULT_BUY_URL;
+                
+                const hasVideo = p.postUrl && p.postUrl !== '';
+
                 const imagesHTML = p.images.length > 0 
-                    ? p.images.map(img => `<img src="${img}" onclick="window.location.href='${DIRECT_BUY_URL}'" onerror="this.src='https://via.placeholder.com/400?text=圖片載入中'">`).join('')
-                    : `<img src="https://via.placeholder.com/400?text=聖荷西好物購">`;
+                    ? p.images.map(img => `<img src="${img}" onclick="window.open('${targetLink}', '_blank')" onerror="this.src='https://via.placeholder.com/400?text=圖片載入中'">`).join('')
+                    : `<img src="https://via.placeholder.com/400?text=聖荷西好物購" onclick="window.open('${targetLink}', '_blank')">`;
 
                 card.innerHTML = `
                     ${p.isSale ? `<div class="sale-tag">🔥 ${p.saleLabel} ${p.discount ? `· ${p.discount}` : ''}</div>` : ''}
                     <div class="relative">
                         <div class="img-slider">${imagesHTML}</div>
                         <div class="absolute top-3 right-3"><span class="brand-badge">${p.brand}</span></div>
+                        ${hasVideo ? `<div class="video-hint"><i class="fas fa-play-circle"></i><span>點圖看實拍影音</span></div>` : ''}
                     </div>
                     <div class="p-5 flex-grow flex flex-col justify-between">
                         <div>
@@ -320,7 +360,9 @@
                                     ${p.isSale && p.discount ? `<span class="text-red-500 text-xs font-bold bg-red-50 px-1.5 rounded border border-red-100">${p.discount}</span>` : ''}
                                 </div>
                             </div>
-                            <button onclick="window.location.href='${DIRECT_BUY_URL}'" class="w-full ${p.isSale ? 'bg-red-500' : 'bg-pink-500'} text-white py-2.5 rounded-full text-sm font-bold shadow-md active:scale-95 transition-all">立即私訊購買</button>
+                            <button onclick="window.open('${targetLink}', '_blank')" class="w-full ${p.isSale ? 'bg-red-500' : 'bg-pink-500'} text-white py-2.5 rounded-full text-sm font-bold shadow-md active:scale-95 transition-all">
+                                立即私訊購買
+                            </button>
                         </div>
                     </div>
                 `;
