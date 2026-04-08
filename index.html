@@ -29,58 +29,57 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #fdf8f5; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #fdf8f5; -webkit-tap-highlight-color: transparent; font-size: 16px; line-height: 1.6; }
         .flower-bg { background-image: radial-gradient(#ffe4e6 1px, transparent 1px); background-size: 20px 20px; }
         .product-card { border-radius: 1.25rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; display: flex; flex-direction: column; position: relative; height: 100%; transition: transform 0.2s; contain: content; }
         .product-card:active { transform: scale(0.98); }
         
-        /* 圖片容器與滑動優化 */
         .img-container { position: relative; width: 100%; aspect-ratio: 1/1; background-color: #f9fafb; overflow: hidden; }
         .img-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; height: 100%; }
         .img-slider::-webkit-scrollbar { display: none; }
         .img-slider img { flex: 0 0 100%; scroll-snap-align: start; object-fit: contain; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease; cursor: pointer; }
         .img-loaded { opacity: 1 !important; }
         
-        /* 滑動提示箭頭與指示器 */
-        .slider-hint-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.7); color: #ec4899; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; z-index: 10; pointer-events: none; opacity: 0.8; }
+        .slider-hint-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.7); color: #ec4899; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; z-index: 10; pointer-events: none; opacity: 0.8; }
         .hint-left { left: 8px; }
         .hint-right { right: 8px; }
-        .slider-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; z-index: 10; }
-        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(0,0,0,0.2); }
-        .dot-active { background: #ec4899; width: 12px; border-radius: 10px; }
+        .slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.2); }
+        .dot-active { background: #ec4899; width: 14px; border-radius: 10px; }
 
-        .brand-badge { background: rgba(255, 255, 255, 0.9); padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; color: #d946ef; backdrop-filter: blur(4px); }
-        .sale-tag { background: linear-gradient(45deg, #f43f5e, #fb7185); color: white; padding: 4px 12px; border-radius: 0 0 15px 0; font-size: 0.75rem; font-weight: 800; position: absolute; top: 0; left: 0; z-index: 20; }
-        .discount-badge { display: inline-block; vertical-align: middle; background: #fee2e2; color: #ef4444; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 800; margin-right: 6px; margin-bottom: 4px; border: 1px solid #fecaca; line-height: 1; }
+        .brand-badge { background: rgba(255, 255, 255, 0.9); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: #d946ef; backdrop-filter: blur(4px); }
+        .sale-tag { background: linear-gradient(45deg, #f43f5e, #fb7185); color: white; padding: 6px 14px; border-radius: 0 0 15px 0; font-size: 0.85rem; font-weight: 800; position: absolute; top: 0; left: 0; z-index: 20; }
+        .discount-badge { display: inline-block; vertical-align: middle; background: #fee2e2; color: #ef4444; font-size: 12px; padding: 3px 8px; border-radius: 4px; font-weight: 800; margin-right: 6px; margin-bottom: 4px; border: 1px solid #fecaca; line-height: 1; }
         
         @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 30s linear infinite; will-change: transform; }
-        .marquee-item { margin-right: 3rem; display: inline-block; }
+        .marquee-item { margin-right: 4rem; display: inline-block; }
+        .marquee-link { cursor: pointer; text-decoration: none; }
         .marquee-link:hover { text-decoration: underline; color: #fff; }
         
-        .horizontal-scroll { display: flex; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; gap: 0.5rem; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+        .horizontal-scroll { display: flex; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; gap: 0.75rem; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
         .horizontal-scroll::-webkit-scrollbar { display: none; }
 
-        .filter-btn { flex-shrink: 0; background: white; padding: 6px 16px; border-radius: 9999px; border: 1px solid #fce7f3; font-size: 0.75rem; color: #6b7280; box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: all 0.15s; cursor: pointer; white-space: nowrap; }
+        .filter-btn { flex-shrink: 0; background: white; padding: 8px 18px; border-radius: 9999px; border: 1px solid #fce7f3; font-size: 0.85rem; color: #6b7280; box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: all 0.15s; cursor: pointer; white-space: nowrap; }
         .filter-btn-active { background-color: #ec4899 !important; color: #ffffff !important; font-weight: 700 !important; border-color: #ec4899 !important; }
         
-        .page-btn { background: white; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #fce7f3; font-size: 0.8rem; color: #6b7280; transition: all 0.15s; font-weight: 500; }
+        .page-btn { background: white; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid #fce7f3; font-size: 0.95rem; color: #6b7280; transition: all 0.15s; font-weight: 500; }
         .page-btn-active { background-color: #ec4899 !important; color: white !important; border-color: #ec4899 !important; }
         .page-btn-disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
 
         .sort-select { 
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ec4899'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
-            background-position: right 0.4rem center; background-repeat: no-repeat; background-size: 0.9rem; 
-            padding-right: 1.8rem; appearance: none; 
+            background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1rem; 
+            padding-right: 2rem; appearance: none; font-size: 0.85rem;
         }
         
-        .video-hint { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); color: white; padding: 4px 10px; border-radius: 100px; font-size: 0.65rem; position: absolute; bottom: 10px; left: 10px; z-index: 20; display: flex; align-items: center; gap: 6px; }
+        .video-hint { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); color: white; padding: 6px 14px; border-radius: 100px; font-size: 0.75rem; position: absolute; bottom: 12px; left: 12px; z-index: 20; display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .pulse-icon { animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
         .info-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; text-align: left; margin-top: 2rem; }
         @media (min-width: 640px) { .info-grid { grid-template-columns: repeat(3, 1fr); gap: 0; } }
-        .info-item { background: #fff; border: 1px solid #ffe4e6; padding: 1.5rem; display: flex; flex-direction: column; height: 100%; }
+        .info-item { background: #fff; border: 1px solid #ffe4e6; padding: 1.75rem; display: flex; flex-direction: column; height: 100%; }
         .info-item:first-child { border-radius: 1rem 1rem 0 0; }
         .info-item:last-child { border-radius: 0 0 1rem 1rem; }
         @media (min-width: 640px) {
@@ -89,46 +88,46 @@
             .info-item:last-child { border-radius: 0 1rem 1rem 0; border-right: 1px solid #ffe4e6; }
         }
         
-        .product-count-badge { background: #fff1f2; color: #db2777; font-size: 10px; padding: 4px 10px; border-radius: 8px; border: 1px solid #ffe4e6; font-weight: 800; display: flex; align-items: center; gap: 4px; }
+        .product-count-badge { background: #fff1f2; color: #db2777; font-size: 12px; padding: 5px 12px; border-radius: 10px; border: 1px solid #ffe4e6; font-weight: 800; display: flex; align-items: center; gap: 6px; }
     </style>
 </head>
 <body class="flower-bg">
 
     <!-- 跑馬燈容器 -->
-    <div id="marquee-container" class="bg-pink-500 text-white py-2 overflow-hidden hidden shadow-sm">
-        <div class="marquee-content text-sm font-bold" id="marquee-text"></div>
+    <div id="marquee-container" class="bg-pink-500 text-white py-3 overflow-hidden hidden shadow-sm">
+        <div class="marquee-content text-base font-bold" id="marquee-text"></div>
     </div>
 
     <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-pink-100">
-        <div class="max-w-screen-md mx-auto px-4 py-3 flex justify-between items-center">
+        <div class="max-w-screen-md mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href=window.location.pathname">
-                <span class="text-2xl">🦋</span>
+                <span class="text-3xl">🦋</span>
                 <div class="flex flex-col">
-                    <h1 class="text-lg font-bold text-gray-800 leading-none">聖荷西好物購🇺🇸</h1>
-                    <span class="text-[9px] text-pink-400 font-medium tracking-widest uppercase">San Jose Goodies</span>
+                    <h1 class="text-xl font-bold text-gray-800 leading-none">聖荷西好物購🇺🇸</h1>
+                    <span class="text-[10px] text-pink-400 font-medium tracking-widest uppercase">San Jose Goodies</span>
                 </div>
             </div>
-            <a href="https://www.facebook.com/groups/183038802197503/" target="_blank" class="bg-pink-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-md shadow-pink-100" onclick="trackGAEvent('join_fb_group', { location: 'header' })">加入社團</a>
+            <button onclick="safeOpenLink('${_FB_URL}', 'join_fb_group', 'header')" class="bg-pink-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-md shadow-pink-100">加入社團</button>
         </div>
     </header>
 
-    <div class="max-w-screen-md mx-auto px-4 mt-6">
-        <div class="mb-2 text-[10px] text-pink-400 font-bold uppercase tracking-widest">限時活動分類</div>
-        <div id="sale-filter" class="horizontal-scroll mb-4"></div>
+    <div class="max-w-screen-md mx-auto px-4 mt-8">
+        <div class="mb-3 text-[11px] text-pink-400 font-bold uppercase tracking-widest">限時活動分類</div>
+        <div id="sale-filter" class="horizontal-scroll mb-5"></div>
 
-        <div class="mb-2 text-[10px] text-gray-400 font-bold uppercase tracking-widest">品牌分類</div>
-        <div id="brand-filter" class="horizontal-scroll pb-2 border-b border-pink-50">
+        <div class="mb-3 text-[11px] text-gray-400 font-bold uppercase tracking-widest">品牌分類</div>
+        <div id="brand-filter" class="horizontal-scroll pb-3 border-b border-pink-50">
             <button onclick="applyFilter('all', 'all')" id="btn-all" data-filter-type="all" data-filter-val="all" class="filter-btn filter-btn-active">所有商品</button>
         </div>
 
-        <div class="flex justify-between items-center mt-4">
+        <div class="flex justify-between items-center mt-5">
             <div id="total-product-count" class="product-count-badge hidden">
-                <i class="fas fa-shopping-bag text-[8px]"></i>
+                <i class="fas fa-shopping-bag text-[10px]"></i>
                 <span id="count-text"></span>
             </div>
             <div class="flex items-center gap-2">
-                <span class="text-[10px] text-gray-400 font-bold uppercase">排序:</span>
-                <select id="sort-order" onchange="handleSortChange()" class="sort-select bg-white border border-pink-100 rounded-lg px-2 py-1 text-xs text-gray-600 font-medium focus:outline-none">
+                <span class="text-[11px] text-gray-400 font-bold uppercase">排序:</span>
+                <select id="sort-order" onchange="handleSortChange()" class="sort-select bg-white border border-pink-100 rounded-lg px-2 py-1.5 text-gray-600 font-medium focus:outline-none">
                     <option value="default">預設排序</option>
                     <option value="date-new">最新上架</option>
                     <option value="date-old">依上架順序</option>
@@ -139,60 +138,60 @@
         </div>
     </div>
 
-    <main class="max-w-screen-md mx-auto px-4 py-4">
-        <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 gap-5 min-h-[300px]">
+    <main class="max-w-screen-md mx-auto px-4 py-5">
+        <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6 min-h-[300px]">
             <div id="loading-state" class="col-span-full text-center py-24 text-gray-400">
-                <div class="animate-bounce mb-4 text-4xl">✈️</div>
-                <p class="text-sm font-medium tracking-widest px-4">正在為你連線聖荷西，挑選最划算的精品...</p>
+                <div class="animate-bounce mb-4 text-5xl">✈️</div>
+                <p class="text-base font-medium tracking-widest px-4">正在為你連線聖荷西，挑選最划算的精品...</p>
             </div>
         </div>
         
-        <div id="pagination-container" class="flex justify-center items-center flex-wrap gap-2 mt-12 mb-4 hidden"></div>
+        <div id="pagination-container" class="flex justify-center items-center flex-wrap gap-3 mt-14 mb-6 hidden"></div>
     </main>
 
-    <footer class="max-w-screen-md mx-auto px-4 py-12 text-center text-gray-400 text-xs">
-        <div class="border-t border-pink-100 pt-12">
-            <p class="font-bold text-gray-600 text-sm mb-1">聖荷西好物購🇺🇸</p>
-            <p class="mb-4 text-gray-500">精品代購・嚴選品質・100% 正品保障</p>
+    <footer class="max-w-screen-md mx-auto px-4 py-14 text-center text-gray-400 text-sm">
+        <div class="border-t border-pink-100 pt-14">
+            <p class="font-bold text-gray-600 text-base mb-1">聖荷西好物購🇺🇸</p>
+            <p class="mb-5 text-gray-500">精品代購・嚴選品質・100% 正品保障</p>
             
             <div class="info-grid shadow-sm">
                 <div class="info-item">
-                    <p class="text-pink-500 font-bold flex items-center gap-1 mb-2"><i class="fas fa-map-marker-alt"></i> 門市地址</p>
-                    <p class="text-gray-600 font-medium mb-1 text-left">台北市中山區長春路380號</p>
-                    <p class="text-[10px] text-gray-400 mb-3 text-left">南京復興站 (捷運文湖/松山新店線)</p>
+                    <p class="text-pink-500 font-bold flex items-center gap-1 mb-3 text-base"><i class="fas fa-map-marker-alt"></i> 門市地址</p>
+                    <p class="text-gray-600 font-medium mb-1 text-left text-base">台北市中山區長春路380號</p>
+                    <p class="text-[11px] text-gray-400 mb-4 text-left">南京復興站 (捷運文湖/松山新店線)</p>
                     <div class="mt-auto text-left">
-                        <a href="https://www.google.com/maps/search/?api=1&query=台北市中山區長春路380號" target="_blank" class="inline-flex items-center gap-1.5 text-pink-500 font-bold hover:underline" onclick="trackGAEvent('map_navigation_click', {})">
+                        <button onclick="safeOpenLink('https://www.google.com/maps/search/?api=1&query=台北市中山區長春路380號', 'map_navigation_click', {})" class="inline-flex items-center gap-2 text-pink-500 font-bold hover:underline text-base">
                             <i class="fas fa-directions"></i> 開啟地圖導航
-                        </a>
+                        </button>
                     </div>
                 </div>
 
                 <div class="info-item">
-                    <p class="text-pink-500 font-bold flex items-center gap-1 mb-2"><i class="fas fa-clock"></i> 營業時間</p>
-                    <p class="text-gray-600 font-medium mb-1 text-left">星期一至星期六</p>
-                    <p class="text-gray-600 font-bold mb-1 text-left">11:00-18:00</p>
-                    <p class="text-[10px] text-gray-400 mb-3 text-left">其餘時段歡迎預約</p>
+                    <p class="text-pink-500 font-bold flex items-center gap-1 mb-3 text-base"><i class="fas fa-clock"></i> 營業時間</p>
+                    <p class="text-gray-600 font-medium mb-1 text-left text-base">星期一至星期六</p>
+                    <p class="text-gray-600 font-bold mb-1 text-left text-base">11:00-18:00</p>
+                    <p class="text-[11px] text-gray-400 mb-4 text-left">其餘時段歡迎預約</p>
                     <div class="mt-auto text-left">
-                        <a href="tel:0227181989" class="text-gray-600 font-bold flex items-center gap-1.5 hover:text-pink-500">
+                        <a href="tel:0227181989" class="text-gray-600 font-bold flex items-center gap-2 hover:text-pink-500 text-base">
                             <i class="fas fa-phone-alt text-pink-300"></i> 02-27181989
                         </a>
                     </div>
                 </div>
 
                 <div class="info-item">
-                    <p class="text-pink-500 font-bold flex items-center gap-1 mb-2"><i class="fas fa-wallet"></i> 消費方式</p>
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="bg-gray-50 px-2 py-1 rounded text-[10px] border border-pink-50">現金支付</span>
-                        <span class="bg-green-50 px-2 py-1 rounded text-[10px] border border-green-100 text-green-600 font-bold">Line Pay</span>
-                        <span class="bg-red-50 px-2 py-1 rounded text-[10px] border border-red-100 text-red-500 font-bold">街口支付</span>
+                    <p class="text-pink-500 font-bold flex items-center gap-1 mb-3 text-base"><i class="fas fa-wallet"></i> 消費方式</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-50 px-2 py-1 rounded text-xs border border-pink-50">現金支付</span>
+                        <span class="bg-green-50 px-2 py-1 rounded text-xs border border-green-100 text-green-600 font-bold">Line Pay</span>
+                        <span class="bg-red-50 px-2 py-1 rounded text-xs border border-red-100 text-red-500 font-bold">街口支付</span>
                     </div>
                     <div class="mt-auto text-left">
-                        <p class="text-red-400 font-bold text-[9px] bg-red-50 px-2 py-1 rounded inline-block">現場售出，恕不接受退貨</p>
+                        <p class="text-red-400 font-bold text-[10px] bg-red-50 px-2 py-1 rounded inline-block">現場售出，恕不接受退貨</p>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-10 px-6 text-[10px] text-gray-400 opacity-80 leading-normal space-y-2">
+            <div class="mt-12 px-6 text-[11px] text-gray-400 opacity-80 leading-relaxed space-y-3 text-left sm:text-center">
                 <p>※ 本網頁所載產品圖示及影音僅供導覽參考，實際到貨細節將依原廠 or 採購專櫃實物為準。</p>
                 <p>※ 若本網頁相關圖文內容有任何權利疑義，敬請透過私訊與我們聯繫，我們將立即協助處理執行。</p>
             </div>
@@ -202,7 +201,7 @@
     <script>
         const _0xAPI = "https://script.google.com/macros/s/AKfycbx64j6HKGdHQVaYDw_7XN7YXK6kl5kUgBTCiEJ2tkKdevuu2bZ0S-WNDOdGk8Ytluum/exec";
         const _FB_URL = 'https://www.facebook.com/groups/183038802197503/';
-        const CACHE_KEY = 'sanjose_v28_ux_upgrade';
+        const CACHE_KEY = 'sanjose_v29_safe_link';
 
         let allProducts = [];
         let activeFilter = { type: 'all', value: 'all' };
@@ -223,6 +222,15 @@
             });
         }, { rootMargin: '100px' });
 
+        // 防止多開空白分頁的開啟函式
+        function safeOpenLink(url, eventName, params) {
+            if (eventName) trackGAEvent(eventName, params);
+            if (url) {
+                const win = window.open(url, '_blank', 'noopener,noreferrer');
+                if (win) win.opener = null;
+            }
+        }
+
         async function init() {
             const params = new URLSearchParams(window.location.search);
             const sortParam = params.get('sort');
@@ -233,12 +241,9 @@
             if (brandParam) activeFilter = { type: 'brand', value: brandParam };
             else if (saleParam) activeFilter = { type: 'sale', value: saleParam };
 
-            // 跑馬燈：串接 Google Sheets 結構 [狀態, 文案, 連結]
             fetch(`${_0xAPI}?action=marquee`).then(res => res.json()).then(rows => {
                 const container = document.getElementById('marquee-text');
                 container.innerHTML = '';
-                
-                // 過濾狀態為 TRUE (B欄位) 的文案 (C欄位)
                 const activeItems = rows.filter(row => row[0] === true || row[0] === 'TRUE');
                 
                 if (activeItems.length > 0) {
@@ -248,12 +253,11 @@
                         const textContent = `✨ ${item[1]} ✨`;
                         
                         if (item[2] && item[2].toString().startsWith('http')) {
-                            const link = document.createElement('a');
-                            link.href = item[2];
-                            link.target = '_blank';
-                            link.className = 'marquee-link';
-                            link.innerText = textContent;
-                            span.appendChild(link);
+                            const linkSpan = document.createElement('span');
+                            linkSpan.className = 'marquee-link';
+                            linkSpan.innerText = textContent;
+                            linkSpan.onclick = () => safeOpenLink(item[2], 'marquee_click', { text: item[1] });
+                            span.appendChild(linkSpan);
                         } else {
                             span.innerText = textContent;
                         }
@@ -343,7 +347,6 @@
             else if (activeFilter.type === 'brand') filtered = allProducts.filter(p => p.brand === activeFilter.value);
             else if (activeFilter.type === 'sale') filtered = allProducts.filter(p => p.saleLabel === activeFilter.value);
 
-            // 修改文案為「嚴選精品」
             document.getElementById('count-text').innerText = `精選 ${filtered.length} 件嚴選精品`;
             document.getElementById('total-product-count').classList.remove('hidden');
 
@@ -373,7 +376,7 @@
         function renderProducts(items) {
             const container = document.getElementById('product-container');
             if (items.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center py-20 text-gray-400">目前沒有符合條件的商品。</div>';
+                container.innerHTML = '<div class="col-span-full text-center py-20 text-gray-400 text-lg">目前沒有符合條件的商品。</div>';
                 return;
             }
             
@@ -382,8 +385,6 @@
                 const targetUrl = p.postUrl || _FB_URL;
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                
-                // 判斷是否需要顯示滑動指示 UI
                 const showSliderUI = p.images.length > 1;
                 
                 card.innerHTML = `
@@ -391,30 +392,30 @@
                     <div class="img-container">
                         ${showSliderUI ? `<div class="slider-hint-arrow hint-right"><i class="fas fa-chevron-right"></i></div>` : ''}
                         <div class="img-slider" onscroll="handleSliderScroll(this)">
-                            ${p.images.length > 0 ? p.images.map(img => `<img data-src="${img}" class="lazy-img" onclick="trackGAEvent('product_image_click', { product_name: '${p.name.replace(/'/g, "\\'")}', brand: '${p.brand}' }); window.open('${targetUrl}', '_blank')">`).join('') : `<img data-src="https://via.placeholder.com/400?text=San+Jose" class="lazy-img">`}
+                            ${p.images.length > 0 ? p.images.map(img => `<img data-src="${img}" class="lazy-img" onclick="safeOpenLink('${targetUrl}', 'product_image_click', { product_name: '${p.name.replace(/'/g, "\\'")}', brand: '${p.brand}' })">`).join('') : `<img data-src="https://via.placeholder.com/400?text=San+Jose" class="lazy-img">`}
                         </div>
                         ${showSliderUI ? `
                             <div class="slider-dots">
                                 ${p.images.map((_, i) => `<div class="dot ${i === 0 ? 'dot-active' : ''}"></div>`).join('')}
                             </div>
                         ` : ''}
-                        <div class="absolute top-3 right-3"><span class="brand-badge">${p.brand}</span></div>
-                        ${p.postUrl ? `<div class="video-hint" onclick="window.open('${targetUrl}', '_blank')"><i class="fas fa-play-circle text-pink-400 text-sm pulse-icon"></i><span class="font-bold">查看社團最新影音/照片</span></div>` : ''}
+                        <div class="absolute top-4 right-4"><span class="brand-badge">${p.brand}</span></div>
+                        ${p.postUrl ? `<div class="video-hint" onclick="safeOpenLink('${targetUrl}', 'video_hint_click', { name: '${p.name.replace(/'/g, "\\'")}' })"><i class="fas fa-play-circle text-pink-400 text-base pulse-icon"></i><span class="font-bold">查看社團最新影音/照片</span></div>` : ''}
                     </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between">
+                    <div class="p-5 flex-grow flex flex-col justify-between">
                         <div>
-                            <h3 class="font-bold text-gray-800 text-[14px] leading-relaxed mb-2">
+                            <h3 class="font-bold text-gray-800 text-[16px] leading-relaxed mb-3">
                                 ${p.discount ? `<span class="discount-badge">${p.discount}</span>` : ''}${p.name}
                             </h3>
-                            <span class="bg-gray-50 text-gray-400 text-[9px] px-1.5 py-0.5 rounded border border-gray-100 uppercase font-bold">SIZE: ${p.size}</span>
+                            <span class="bg-gray-50 text-gray-400 text-[11px] px-2 py-0.5 rounded border border-gray-100 uppercase font-bold">尺寸: ${p.size}</span>
                         </div>
-                        <div class="mt-4">
-                            <div class="flex flex-col mb-3">
-                                <span class="text-gray-400 text-[10px] line-through">專櫃價 ${p.marketPrice || '---'}</span>
-                                ${p.specialPrice ? `<span class="text-pink-400 text-[10px] line-through italic">特價 ${p.salePrice}</span>` : ''}
-                                <span class="text-pink-600 font-black text-xl tracking-tight leading-none mt-1">${p.specialPrice || p.salePrice || '電洽'}</span>
+                        <div class="mt-5">
+                            <div class="flex flex-col mb-4">
+                                <span class="text-gray-400 text-[11px] line-through">專櫃價 ${p.marketPrice || '---'}</span>
+                                ${p.specialPrice ? `<span class="text-pink-400 text-[11px] line-through italic">特價 ${p.salePrice}</span>` : ''}
+                                <span class="text-pink-600 font-black text-2xl tracking-tight leading-none mt-1">${p.specialPrice || p.salePrice || '電洽'}</span>
                             </div>
-                            <button onclick="trackGAEvent('purchase_click', { product_name: '${p.name.replace(/'/g, "\\'")}', brand: '${p.brand}', price: ${p.finalPrice} }); window.open('${targetUrl}', '_blank')" class="block w-full text-center bg-pink-500 text-white py-2.5 rounded-xl text-sm font-bold shadow-md active:scale-95 transition-all">立即私訊購買</button>
+                            <button onclick="safeOpenLink('${targetUrl}', 'purchase_click', { product_name: '${p.name.replace(/'/g, "\\'")}', brand: '${p.brand}', price: ${p.finalPrice} })" class="block w-full text-center bg-pink-500 text-white py-3.5 rounded-xl text-base font-bold shadow-md active:scale-95 transition-all">立即私訊購買</button>
                         </div>
                     </div>`;
                 fragment.appendChild(card);
@@ -423,14 +424,11 @@
             container.querySelectorAll('.lazy-img').forEach(img => imageObserver.observe(img));
         }
 
-        // 處理圖片滑動時的指示器切換
         function handleSliderScroll(el) {
             const index = Math.round(el.scrollLeft / el.clientWidth);
             const dots = el.parentElement.querySelectorAll('.dot');
             const arrowRight = el.parentElement.querySelector('.hint-right');
             const arrowLeft = el.parentElement.querySelector('.hint-left') || document.createElement('div');
-            
-            // 初始化左箭頭
             if (index > 0 && !el.parentElement.querySelector('.hint-left')) {
                 arrowLeft.className = 'slider-hint-arrow hint-left';
                 arrowLeft.innerHTML = '<i class="fas fa-chevron-left"></i>';
@@ -438,13 +436,10 @@
             } else if (index === 0 && el.parentElement.querySelector('.hint-left')) {
                 el.parentElement.querySelector('.hint-left').remove();
             }
-
-            // 右箭頭隱藏邏輯
             if (arrowRight) {
                 if (index >= dots.length - 1) arrowRight.style.display = 'none';
                 else arrowRight.style.display = 'flex';
             }
-
             dots.forEach((dot, i) => {
                 if (i === index) dot.classList.add('dot-active');
                 else dot.classList.remove('dot-active');
@@ -456,13 +451,11 @@
             if (totalPages <= 1) { container.classList.add('hidden'); return; }
             container.classList.remove('hidden');
             container.innerHTML = '';
-
             const prevBtn = document.createElement('button');
             prevBtn.className = `page-btn ${currentPage === 1 ? 'page-btn-disabled' : ''}`;
             prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
             prevBtn.onclick = () => { if(currentPage > 1) { currentPage--; updateDisplay(false); } };
             container.appendChild(prevBtn);
-
             for (let i = 1; i <= totalPages; i++) {
                 const pageBtn = document.createElement('button');
                 pageBtn.className = `page-btn ${currentPage === i ? 'page-btn-active' : ''}`;
@@ -470,7 +463,6 @@
                 pageBtn.onclick = () => { if(currentPage !== i) { currentPage = i; updateDisplay(false); } };
                 container.appendChild(pageBtn);
             }
-
             const nextBtn = document.createElement('button');
             nextBtn.className = `page-btn ${currentPage === totalPages ? 'page-btn-disabled' : ''}`;
             nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
