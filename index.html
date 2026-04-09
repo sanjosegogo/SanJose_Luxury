@@ -31,21 +31,32 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #fdf8f5; -webkit-tap-highlight-color: transparent; font-size: 16px; line-height: 1.6; }
         .flower-bg { background-image: radial-gradient(#ffe4e6 1px, transparent 1px); background-size: 20px 20px; }
+        
+        /* 基礎產品卡片樣式 */
         .product-card { border-radius: 1.25rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; display: flex; flex-direction: column; position: relative; height: 100%; transition: transform 0.2s; contain: content; }
         .product-card:active { transform: scale(0.98); }
         
+        /* 雙欄模式樣式調整 */
+        .grid-layout-2 .product-card .p-5 { padding: 0.75rem; }
+        .grid-layout-2 .product-card h3 { font-size: 0.875rem; line-height: 1.4; height: 2.8rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 0.5rem; }
+        .grid-layout-2 .product-card .price-main { font-size: 1.125rem; }
+        .grid-layout-2 .product-card .buy-btn { padding: 0.5rem; font-size: 0.875rem; border-radius: 0.75rem; }
+        .grid-layout-2 .product-card .video-hint { padding: 4px 8px; font-size: 0.65rem; bottom: 8px; left: 8px; }
+        .grid-layout-2 .product-card .sale-tag { font-size: 0.7rem; padding: 4px 10px; }
+        .grid-layout-2 .product-card .brand-badge { font-size: 0.7rem; padding: 2px 8px; }
+
         .img-container { position: relative; width: 100%; aspect-ratio: 1/1; background-color: #f9fafb; overflow: hidden; }
-        .img-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; height: 100%; }
+        .img-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; height: 100%; scroll-behavior: smooth; }
         .img-slider::-webkit-scrollbar { display: none; }
-        .img-slider img { flex: 0 0 100%; scroll-snap-align: start; object-fit: contain; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease; cursor: pointer; }
+        .img-slider img { flex: 0 0 100%; scroll-snap-align: start; object-fit: contain; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease; cursor: zoom-in; }
         .img-loaded { opacity: 1 !important; }
         
-        .slider-hint-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.7); color: #ec4899; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; z-index: 10; pointer-events: none; opacity: 0.8; }
-        .hint-left { left: 8px; }
-        .hint-right { right: 8px; }
-        .slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.2); }
-        .dot-active { background: #ec4899; width: 14px; border-radius: 10px; }
+        .slider-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); color: #ec4899; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; z-index: 10; cursor: pointer; border: 1px solid #fce7f3; }
+        .nav-left { left: 8px; }
+        .nav-right { right: 8px; }
+        .slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; z-index: 10; }
+        .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(0,0,0,0.2); }
+        .dot-active { background: #ec4899; width: 10px; border-radius: 10px; }
 
         .brand-badge { background: rgba(255, 255, 255, 0.9); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: #d946ef; backdrop-filter: blur(4px); }
         .sale-tag { background: linear-gradient(45deg, #f43f5e, #fb7185); color: white; padding: 6px 14px; border-radius: 0 0 15px 0; font-size: 0.85rem; font-weight: 800; position: absolute; top: 0; left: 0; z-index: 20; }
@@ -70,12 +81,36 @@
         .sort-select { 
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ec4899'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
             background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1rem; 
-            padding-right: 2rem; appearance: none; font-size: 0.85rem;
+            padding-right: 2rem; appearance: none; font-size: 0.85rem; height: 38px;
         }
+
+        .layout-toggle-container { background: white; border: 1px solid #fce7f3; border-radius: 8px; display: flex; padding: 2px; height: 38px; align-items: center; }
+        .layout-toggle-btn { width: 34px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.9rem; transition: all 0.2s; cursor: pointer; color: #d1d5db; }
+        .layout-toggle-btn.active { background: #ec4899; color: white; }
         
         .video-hint { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); color: white; padding: 6px 14px; border-radius: 100px; font-size: 0.75rem; position: absolute; bottom: 12px; left: 12px; z-index: 20; display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .pulse-icon { animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #ec4899; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Lightbox 相關 */
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        #lightbox.active { display: flex; opacity: 1; }
+        .lightbox-content { width: 100%; height: 100%; position: relative; display: flex; flex-direction: column; }
+        .lightbox-slider { flex-grow: 1; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
+        .lightbox-slider::-webkit-scrollbar { display: none; }
+        .lightbox-slider img { flex: 0 0 100%; height: 100%; object-fit: contain; scroll-snap-align: start; }
+        .lightbox-close { position: absolute; top: 15px; right: 15px; color: white; font-size: 24px; z-index: 1010; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); border-radius: 50%; }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; background: rgba(255,255,255,0.1); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; z-index: 1010; }
+        .lightbox-prev { left: 15px; }
+        .lightbox-next { right: 15px; }
+        .lightbox-counter { position: absolute; top: 20px; left: 20px; color: white; font-size: 14px; font-weight: bold; background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 20px; z-index: 1010; }
+        
+        .lightbox-info { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%); padding: 60px 20px 30px; position: absolute; bottom: 0; left: 0; right: 0; color: white; z-index: 1010; pointer-events: none; }
+        .lightbox-product-name { font-size: 1rem; font-weight: 700; margin-bottom: 6px; line-height: 1.4; display: flex; align-items: flex-start; gap: 8px; }
+        .lightbox-product-price { color: #f472b6; font-size: 1.25rem; font-weight: 900; }
 
         .info-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; text-align: left; margin-top: 2rem; }
         @media (min-width: 640px) { .info-grid { grid-template-columns: repeat(3, 1fr); gap: 0; } }
@@ -88,17 +123,33 @@
             .info-item:last-child { border-radius: 0 1rem 1rem 0; border-right: 1px solid #ffe4e6; }
         }
         
-        .product-count-badge { background: #fff1f2; color: #db2777; font-size: 12px; padding: 5px 12px; border-radius: 10px; border: 1px solid #ffe4e6; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+        .product-count-badge { background: #fff1f2; color: #db2777; font-size: 12px; padding: 0 12px; border-radius: 10px; border: 1px solid #ffe4e6; font-weight: 800; display: flex; align-items: center; gap: 6px; height: 38px; }
     </style>
 </head>
 <body class="flower-bg">
 
-    <!-- 跑馬燈容器 -->
-    <div id="marquee-container" class="bg-pink-500 text-white py-3 overflow-hidden hidden shadow-sm">
-        <div class="marquee-content text-base font-bold" id="marquee-text"></div>
+    <!-- Lightbox -->
+    <div id="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-content">
+            <div id="lightbox-counter" class="lightbox-counter">1 / 1</div>
+            <div class="lightbox-close" onclick="closeLightbox(event)"><i class="fas fa-times"></i></div>
+            <div id="lightbox-prev" class="lightbox-nav lightbox-prev" onclick="lightboxMove(-1, event)"><i class="fas fa-chevron-left"></i></div>
+            <div id="lightbox-next" class="lightbox-nav lightbox-next" onclick="lightboxMove(1, event)"><i class="fas fa-chevron-right"></i></div>
+            <div id="lightbox-slider" class="lightbox-slider" onscroll="handleLightboxScroll()"></div>
+            <div class="lightbox-info">
+                <div id="lightbox-p-name" class="lightbox-product-name"></div>
+                <div id="lightbox-p-price" class="lightbox-product-price"></div>
+            </div>
+        </div>
     </div>
 
+    <!-- 修正: 跑馬燈置頂常駐於 header 內 -->
     <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-pink-100">
+        <!-- 置頂跑馬燈容器 -->
+        <div id="marquee-container" class="bg-pink-500 text-white py-2 overflow-hidden hidden shadow-sm border-b border-pink-600/20">
+            <div class="marquee-content text-sm sm:text-base font-bold" id="marquee-text"></div>
+        </div>
+        
         <div class="max-w-screen-md mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href=window.location.pathname">
                 <span class="text-3xl">🦋</span>
@@ -107,7 +158,7 @@
                     <span class="text-[10px] text-pink-400 font-medium tracking-widest uppercase">San Jose Goodies</span>
                 </div>
             </div>
-            <button onclick="safeOpenLink('${_FB_URL}', 'join_fb_group', 'header')" class="bg-pink-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-md shadow-pink-100">加入社團</button>
+            <button onclick="handleFBJoinClick()" class="bg-pink-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-md shadow-pink-100">加入 FB 社團</button>
         </div>
     </header>
 
@@ -120,14 +171,22 @@
             <button onclick="applyFilter('all', 'all')" id="btn-all" data-filter-type="all" data-filter-val="all" class="filter-btn filter-btn-active">所有商品</button>
         </div>
 
-        <div class="flex justify-between items-center mt-5">
-            <div id="total-product-count" class="product-count-badge hidden">
+        <div class="flex flex-wrap items-center justify-between gap-3 mt-6">
+            <div id="total-product-count" class="product-count-badge hidden shrink-0">
                 <i class="fas fa-shopping-bag text-[10px]"></i>
                 <span id="count-text"></span>
             </div>
+            
             <div class="flex items-center gap-2">
-                <span class="text-[11px] text-gray-400 font-bold uppercase">排序:</span>
-                <select id="sort-order" onchange="handleSortChange()" class="sort-select bg-white border border-pink-100 rounded-lg px-2 py-1.5 text-gray-600 font-medium focus:outline-none">
+                <div class="layout-toggle-container">
+                    <div id="layout-single" onclick="toggleLayout('single')" class="layout-toggle-btn active" title="單欄">
+                        <i class="fas fa-square"></i>
+                    </div>
+                    <div id="layout-grid" onclick="toggleLayout('grid')" class="layout-toggle-btn" title="雙欄">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                </div>
+                <select id="sort-order" onchange="handleSortChange()" class="sort-select bg-white border border-pink-100 rounded-lg px-2 text-gray-600 font-medium focus:outline-none">
                     <option value="default">預設排序</option>
                     <option value="date-new">最新上架</option>
                     <option value="date-old">依上架順序</option>
@@ -139,10 +198,10 @@
     </div>
 
     <main class="max-w-screen-md mx-auto px-4 py-5">
-        <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6 min-h-[300px]">
+        <div id="product-container" class="grid grid-cols-1 gap-6 min-h-[300px]">
             <div id="loading-state" class="col-span-full text-center py-24 text-gray-400">
-                <div class="animate-bounce mb-4 text-5xl">✈️</div>
-                <p class="text-base font-medium tracking-widest px-4">正在為你連線聖荷西，挑選最划算的精品...</p>
+                <div class="spinner"></div>
+                <p class="text-base font-medium tracking-widest px-4 text-pink-500/80">正在連線聖荷西，挑選最划算的精品 ✈️</p>
             </div>
         </div>
         
@@ -158,7 +217,7 @@
                 <div class="info-item">
                     <p class="text-pink-500 font-bold flex items-center gap-1 mb-3 text-base"><i class="fas fa-map-marker-alt"></i> 門市地址</p>
                     <p class="text-gray-600 font-medium mb-1 text-left text-base">台北市中山區長春路380號</p>
-                    <p class="text-[11px] text-gray-400 mb-4 text-left">南京復興站 (捷運文湖/松山新店線)</p>
+                    <p class="text-[10px] text-gray-400 mb-4 text-left">南京復興站 (捷運文湖/松山新店線)</p>
                     <div class="mt-auto text-left">
                         <button onclick="safeOpenLink('https://www.google.com/maps/search/?api=1&query=台北市中山區長春路380號', 'map_navigation_click', {})" class="inline-flex items-center gap-2 text-pink-500 font-bold hover:underline text-base">
                             <i class="fas fa-directions"></i> 開啟地圖導航
@@ -170,7 +229,7 @@
                     <p class="text-pink-500 font-bold flex items-center gap-1 mb-3 text-base"><i class="fas fa-clock"></i> 營業時間</p>
                     <p class="text-gray-600 font-medium mb-1 text-left text-base">星期一至星期六</p>
                     <p class="text-gray-600 font-bold mb-1 text-left text-base">11:00-18:00</p>
-                    <p class="text-[11px] text-gray-400 mb-4 text-left">其餘時段歡迎預約</p>
+                    <p class="text-[10px] text-gray-400 mb-4 text-left">其餘時段歡迎預約</p>
                     <div class="mt-auto text-left">
                         <a href="tel:0227181989" class="text-gray-600 font-bold flex items-center gap-2 hover:text-pink-500 text-base">
                             <i class="fas fa-phone-alt text-pink-300"></i> 02-27181989
@@ -201,11 +260,12 @@
     <script>
         const _0xAPI = "https://script.google.com/macros/s/AKfycbx64j6HKGdHQVaYDw_7XN7YXK6kl5kUgBTCiEJ2tkKdevuu2bZ0S-WNDOdGk8Ytluum/exec";
         const _FB_URL = 'https://www.facebook.com/groups/183038802197503/';
-        const CACHE_KEY = 'sanjose_v29_safe_link';
+        const CACHE_KEY = 'sanjose_v31_safe_link';
 
         let allProducts = [];
         let activeFilter = { type: 'all', value: 'all' };
         let currentPage = 1;
+        let layoutMode = 'single'; 
         const itemsPerPage = 10;
         
         const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -222,36 +282,84 @@
             });
         }, { rootMargin: '100px' });
 
-        // 防止多開空白分頁的開啟函式
+        function handleFBJoinClick() {
+            safeOpenLink(_FB_URL, 'join_fb_group', { location: 'header' });
+        }
+
         function safeOpenLink(url, eventName, params) {
             if (eventName) trackGAEvent(eventName, params);
-            if (url) {
-                const win = window.open(url, '_blank', 'noopener,noreferrer');
-                if (win) win.opener = null;
+            if (!url) return;
+            const win = window.open(url, '_blank', 'noopener,noreferrer');
+            if (!win) {
+                window.location.href = url;
             }
         }
 
+        function toggleLayout(mode) {
+            layoutMode = mode;
+            const container = document.getElementById('product-container');
+            const singleBtn = document.getElementById('layout-single');
+            const gridBtn = document.getElementById('layout-grid');
+
+            if (mode === 'grid') {
+                container.classList.remove('grid-cols-1');
+                container.classList.add('grid-cols-2', 'sm:grid-cols-3', 'grid-layout-2', 'gap-3');
+                gridBtn.classList.add('active');
+                singleBtn.classList.remove('active');
+            } else {
+                container.classList.add('grid-cols-1');
+                container.classList.remove('grid-cols-2', 'sm:grid-cols-3', 'grid-layout-2', 'gap-3');
+                singleBtn.classList.add('active');
+                gridBtn.classList.remove('active');
+            }
+            updateDisplay(false);
+        }
+
         async function init() {
+            if (window.innerWidth >= 640) {
+                layoutMode = 'grid';
+                const container = document.getElementById('product-container');
+                container.classList.remove('grid-cols-1');
+                container.classList.add('grid-cols-2', 'sm:grid-cols-3', 'grid-layout-2', 'gap-3');
+                document.getElementById('layout-grid').classList.add('active');
+                document.getElementById('layout-single').classList.remove('active');
+            }
+
             const params = new URLSearchParams(window.location.search);
             const sortParam = params.get('sort');
             if (sortParam) document.getElementById('sort-order').value = sortParam;
-
             const brandParam = params.get('brand');
             const saleParam = params.get('sale');
             if (brandParam) activeFilter = { type: 'brand', value: brandParam };
             else if (saleParam) activeFilter = { type: 'sale', value: saleParam };
 
+            // 修正：跑馬燈新增到期日邏輯 (D欄)
             fetch(`${_0xAPI}?action=marquee`).then(res => res.json()).then(rows => {
                 const container = document.getElementById('marquee-text');
+                const marqueeWrapper = document.getElementById('marquee-container');
                 container.innerHTML = '';
-                const activeItems = rows.filter(row => row[0] === true || row[0] === 'TRUE');
+                
+                const now = new Date();
+                
+                const activeItems = rows.filter(row => {
+                    const isEnabled = row[0] === true || row[0] === 'TRUE';
+                    const expiryStr = row[3]; // D欄
+                    let notExpired = true;
+                    
+                    if (expiryStr) {
+                        const expiryDate = new Date(expiryStr);
+                        if (!isNaN(expiryDate.getTime())) {
+                            notExpired = now <= expiryDate;
+                        }
+                    }
+                    return isEnabled && notExpired;
+                });
                 
                 if (activeItems.length > 0) {
                     activeItems.forEach(item => {
                         const span = document.createElement('span');
                         span.className = 'marquee-item';
                         const textContent = `✨ ${item[1]} ✨`;
-                        
                         if (item[2] && item[2].toString().startsWith('http')) {
                             const linkSpan = document.createElement('span');
                             linkSpan.className = 'marquee-link';
@@ -263,7 +371,7 @@
                         }
                         container.appendChild(span);
                     });
-                    document.getElementById('marquee-container').classList.remove('hidden');
+                    marqueeWrapper.classList.remove('hidden');
                 }
             }).catch(() => {});
 
@@ -284,7 +392,6 @@
                 const response = await fetch(`${_0xAPI}?action=get_data`);
                 const rows = await response.json();
                 if (!Array.isArray(rows) || rows.length < 2) return;
-
                 const validRows = rows.slice(1).filter(row => (row[1] === true || row[1] === 'TRUE') && row[5]);
                 const newData = validRows.map((row, index) => {
                     const priceI = parseNum(row[8]);
@@ -299,7 +406,6 @@
                         images: row.slice(12, 17).filter(url => url && url.toString().startsWith('http'))
                     };
                 });
-                
                 const newJson = JSON.stringify(newData);
                 if (newJson !== localStorage.getItem(CACHE_KEY)) {
                     localStorage.setItem(CACHE_KEY, newJson);
@@ -315,7 +421,6 @@
             const saleContainer = document.getElementById('sale-filter');
             const brandContainer = document.getElementById('brand-filter');
             saleContainer.innerHTML = '';
-            
             const saleMap = new Map();
             allProducts.forEach(p => {
                 if (p.saleLabel) {
@@ -326,14 +431,11 @@
             });
             const sortedSales = [...saleMap.entries()].sort((a, b) => b[1] - a[1]).map(entry => entry[0]);
             sortedSales.forEach(l => saleContainer.appendChild(createBtn(l, () => applyFilter(l, 'sale'), 'sale', l)));
-
             const allBtn = document.getElementById('btn-all');
             brandContainer.innerHTML = '';
             brandContainer.appendChild(allBtn);
-            
             const brands = [...new Set(allProducts.map(p => p.brand))].filter(b => b !== '其他').sort();
             brands.forEach(b => brandContainer.appendChild(createBtn(b, () => applyFilter(b, 'brand'), 'brand', b)));
-            
             updateFilterButtonsUI();
         }
 
@@ -341,34 +443,28 @@
             if (resetPage) currentPage = 1;
             const container = document.getElementById('product-container');
             const sortOrder = document.getElementById('sort-order').value;
-            
             let filtered = [];
             if (activeFilter.type === 'all') filtered = [...allProducts];
             else if (activeFilter.type === 'brand') filtered = allProducts.filter(p => p.brand === activeFilter.value);
             else if (activeFilter.type === 'sale') filtered = allProducts.filter(p => p.saleLabel === activeFilter.value);
-
-            document.getElementById('count-text').innerText = `精選 ${filtered.length} 件嚴選精品`;
+            
+            document.getElementById('count-text').innerText = `共 ${filtered.length} 件嚴選精品`;
             document.getElementById('total-product-count').classList.remove('hidden');
 
             switch(sortOrder) {
                 case 'price-asc': filtered.sort((a, b) => (a.finalPrice || 0) - (b.finalPrice || 0)); break;
                 case 'price-desc': filtered.sort((a, b) => (b.finalPrice || 0) - (a.finalPrice || 0)); break;
                 case 'date-old': filtered.sort((a, b) => a.originalIndex - b.originalIndex); break;
-                case 'date-new':
-                case 'default':
                 default: filtered.sort((a, b) => b.originalIndex - a.originalIndex);
             }
-            
             const totalPages = Math.ceil(filtered.length / itemsPerPage);
             const paginatedItems = filtered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
             container.innerHTML = '';
             renderProducts(paginatedItems);
             renderPagination(totalPages);
             updateFilterButtonsUI();
-            
             if (!resetPage) {
-                const scrollTarget = document.getElementById('brand-filter').offsetTop - 80;
+                const scrollTarget = document.getElementById('brand-filter').offsetTop - 120; // 考慮置頂高度
                 window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
             }
         }
@@ -379,43 +475,54 @@
                 container.innerHTML = '<div class="col-span-full text-center py-20 text-gray-400 text-lg">目前沒有符合條件的商品。</div>';
                 return;
             }
-            
             const fragment = document.createDocumentFragment();
             items.forEach(p => {
-                const targetUrl = p.postUrl || _FB_URL;
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                const showSliderUI = p.images.length > 1;
+                const hasMultipleImages = p.images.length > 1;
+                const showVideoHint = p.postUrl && p.postUrl.toString().trim() !== "";
                 
+                const productData = JSON.stringify({
+                    name: p.name,
+                    price: p.specialPrice || p.salePrice || '電洽',
+                    discount: p.discount,
+                    images: p.images
+                }).replace(/"/g, '&quot;');
+
                 card.innerHTML = `
                     ${p.saleLabel ? `<div class="sale-tag">🔥 ${p.saleLabel}</div>` : ''}
                     <div class="img-container">
-                        ${showSliderUI ? `<div class="slider-hint-arrow hint-right"><i class="fas fa-chevron-right"></i></div>` : ''}
+                        <div class="slider-nav nav-left" onclick="handleNavClick(this, -1, event)" style="display:none"><i class="fas fa-chevron-left"></i></div>
+                        <div class="slider-nav nav-right" onclick="handleNavClick(this, 1, event)" ${hasMultipleImages ? '' : 'style="display:none"'}><i class="fas fa-chevron-right"></i></div>
                         <div class="img-slider" onscroll="handleSliderScroll(this)">
-                            ${p.images.length > 0 ? p.images.map(img => `<img data-src="${img}" class="lazy-img" onclick="safeOpenLink('${targetUrl}', 'product_image_click', { product_name: '${p.name.replace(/'/g, "\\'")}', brand: '${p.brand}' })">`).join('') : `<img data-src="https://via.placeholder.com/400?text=San+Jose" class="lazy-img">`}
+                            ${p.images.length > 0 ? p.images.map((img, idx) => `<img data-src="${img}" class="lazy-img" onclick="openLightbox(${productData}, ${idx})">`).join('') : `<img data-src="https://via.placeholder.com/400?text=San+Jose" class="lazy-img">`}
                         </div>
-                        ${showSliderUI ? `
+                        ${hasMultipleImages ? `
                             <div class="slider-dots">
                                 ${p.images.map((_, i) => `<div class="dot ${i === 0 ? 'dot-active' : ''}"></div>`).join('')}
                             </div>
                         ` : ''}
                         <div class="absolute top-4 right-4"><span class="brand-badge">${p.brand}</span></div>
-                        ${p.postUrl ? `<div class="video-hint" onclick="safeOpenLink('${targetUrl}', 'video_hint_click', { name: '${p.name.replace(/'/g, "\\'")}' })"><i class="fas fa-play-circle text-pink-400 text-base pulse-icon"></i><span class="font-bold">查看社團最新影音/照片</span></div>` : ''}
+                        ${showVideoHint ? `
+                        <div class="video-hint" onclick="safeOpenLink('${_FB_URL}', 'video_hint_click', { name: '${p.name.replace(/'/g, "\\'")}' })">
+                            <i class="fas fa-play-circle text-pink-400 text-base pulse-icon"></i>
+                            <span class="font-bold">加入私密社團看實拍影音/貼文</span>
+                        </div>` : ''}
                     </div>
                     <div class="p-5 flex-grow flex flex-col justify-between">
                         <div>
-                            <h3 class="font-bold text-gray-800 text-[16px] leading-relaxed mb-3">
+                            <h3 class="font-bold text-gray-800 leading-relaxed">
                                 ${p.discount ? `<span class="discount-badge">${p.discount}</span>` : ''}${p.name}
                             </h3>
-                            <span class="bg-gray-50 text-gray-400 text-[11px] px-2 py-0.5 rounded border border-gray-100 uppercase font-bold">尺寸: ${p.size}</span>
+                            <span class="bg-gray-50 text-gray-400 text-[10px] px-2 py-0.5 rounded border border-gray-100 uppercase font-bold">尺寸: ${p.size}</span>
                         </div>
-                        <div class="mt-5">
-                            <div class="flex flex-col mb-4">
-                                <span class="text-gray-400 text-[11px] line-through">專櫃價 ${p.marketPrice || '---'}</span>
-                                ${p.specialPrice ? `<span class="text-pink-400 text-[11px] line-through italic">特價 ${p.salePrice}</span>` : ''}
-                                <span class="text-pink-600 font-black text-2xl tracking-tight leading-none mt-1">${p.specialPrice || p.salePrice || '電洽'}</span>
+                        <div class="mt-3">
+                            <div class="flex flex-col mb-3">
+                                <span class="text-gray-400 text-[10px] line-through">專櫃價 ${p.marketPrice || '---'}</span>
+                                ${p.specialPrice ? `<span class="text-pink-400 text-[10px] line-through italic">特價 ${p.salePrice}</span>` : ''}
+                                <span class="price-main text-pink-600 font-black text-2xl tracking-tight leading-none mt-1">${p.specialPrice || p.salePrice || '電洽'}</span>
                             </div>
-                            <button onclick="safeOpenLink('${targetUrl}', 'purchase_click', { product_name: '${p.name.replace(/'/g, "\\'")}', brand: '${p.brand}', price: ${p.finalPrice} })" class="block w-full text-center bg-pink-500 text-white py-3.5 rounded-xl text-base font-bold shadow-md active:scale-95 transition-all">立即私訊購買</button>
+                            <button onclick="safeOpenLink('${_FB_URL}', 'purchase_click', { product_name: '${p.name.replace(/'/g, "\\'")}', brand: '${p.brand}', price: ${p.finalPrice} })" class="buy-btn block w-full text-center bg-pink-500 text-white py-3 rounded-xl text-base font-bold shadow-md active:scale-95 transition-all">立即私訊購買</button>
                         </div>
                     </div>`;
                 fragment.appendChild(card);
@@ -427,23 +534,107 @@
         function handleSliderScroll(el) {
             const index = Math.round(el.scrollLeft / el.clientWidth);
             const dots = el.parentElement.querySelectorAll('.dot');
-            const arrowRight = el.parentElement.querySelector('.hint-right');
-            const arrowLeft = el.parentElement.querySelector('.hint-left') || document.createElement('div');
-            if (index > 0 && !el.parentElement.querySelector('.hint-left')) {
-                arrowLeft.className = 'slider-hint-arrow hint-left';
-                arrowLeft.innerHTML = '<i class="fas fa-chevron-left"></i>';
-                el.parentElement.appendChild(arrowLeft);
-            } else if (index === 0 && el.parentElement.querySelector('.hint-left')) {
-                el.parentElement.querySelector('.hint-left').remove();
-            }
-            if (arrowRight) {
-                if (index >= dots.length - 1) arrowRight.style.display = 'none';
-                else arrowRight.style.display = 'flex';
-            }
+            const navLeft = el.parentElement.querySelector('.nav-left');
+            const navRight = el.parentElement.querySelector('.nav-right');
             dots.forEach((dot, i) => {
                 if (i === index) dot.classList.add('dot-active');
                 else dot.classList.remove('dot-active');
             });
+            if(dots.length > 1) {
+                navLeft.style.display = 'flex';
+                navRight.style.display = 'flex';
+            }
+        }
+
+        function handleNavClick(btn, dir, event) {
+            event.stopPropagation();
+            const slider = btn.parentElement.querySelector('.img-slider');
+            const dots = btn.parentElement.querySelectorAll('.dot');
+            let current = Math.round(slider.scrollLeft / slider.clientWidth);
+            let next = current + dir;
+            if (next < 0) next = dots.length - 1;
+            if (next >= dots.length) next = 0;
+            slider.scrollTo({ left: next * slider.clientWidth, behavior: 'smooth' });
+        }
+
+        function openLightbox(p, startIdx) {
+            const lightbox = document.getElementById('lightbox');
+            const slider = document.getElementById('lightbox-slider');
+            const counter = document.getElementById('lightbox-counter');
+            const prevBtn = document.getElementById('lightbox-prev');
+            const nextBtn = document.getElementById('lightbox-next');
+            
+            const nameEl = document.getElementById('lightbox-p-name');
+            const priceEl = document.getElementById('lightbox-p-price');
+
+            slider.style.visibility = 'hidden'; 
+            slider.style.scrollBehavior = 'auto'; 
+            slider.innerHTML = p.images.map(src => `<img src="${src}" alt="preview">`).join('');
+            
+            nameEl.innerHTML = (p.discount ? `<span class="discount-badge">${p.discount}</span>` : '') + p.name;
+            priceEl.innerText = p.price;
+
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            const total = p.images.length;
+            counter.innerText = `${startIdx + 1} / ${total}`;
+            
+            if (total <= 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
+
+            requestAnimationFrame(() => {
+                slider.scrollLeft = startIdx * slider.clientWidth;
+                setTimeout(() => {
+                    slider.style.scrollBehavior = 'smooth'; 
+                    slider.style.visibility = 'visible';
+                }, 50);
+            });
+        }
+
+        function handleLightboxScroll() {
+            const slider = document.getElementById('lightbox-slider');
+            const counter = document.getElementById('lightbox-counter');
+            const imgs = slider.querySelectorAll('img');
+            if (imgs.length === 0) return;
+            const index = Math.round(slider.scrollLeft / slider.clientWidth);
+            counter.innerText = `${index + 1} / ${imgs.length}`;
+        }
+
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox' || e.target.classList.contains('fa-times') || e.target.closest('.lightbox-close')) {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function lightboxMove(dir, e) {
+            if(e) e.stopPropagation();
+            const slider = document.getElementById('lightbox-slider');
+            const imgs = slider.querySelectorAll('img');
+            if (imgs.length === 0) return;
+            let current = Math.round(slider.scrollLeft / slider.clientWidth);
+            let next = current + dir;
+
+            if (next < 0) {
+                slider.style.scrollBehavior = 'auto';
+                slider.scrollLeft = (imgs.length - 1) * slider.clientWidth;
+                setTimeout(() => slider.style.scrollBehavior = 'smooth', 10);
+                return;
+            }
+            if (next >= imgs.length) {
+                slider.style.scrollBehavior = 'auto';
+                slider.scrollLeft = 0;
+                setTimeout(() => slider.style.scrollBehavior = 'smooth', 10);
+                return;
+            }
+            slider.scrollTo({ left: next * slider.clientWidth, behavior: 'smooth' });
         }
 
         function renderPagination(totalPages) {
@@ -484,7 +675,6 @@
 
         function applyFilter(val, type) {
             activeFilter = { type, value: val };
-            trackGAEvent('filter_click', { filter_type: type, filter_value: val });
             const url = new URL(window.location);
             url.searchParams.delete('brand');
             url.searchParams.delete('sale');
@@ -495,7 +685,6 @@
 
         function handleSortChange() {
             const sortVal = document.getElementById('sort-order').value;
-            trackGAEvent('sort_change', { sort_type: sortVal });
             const url = new URL(window.location);
             url.searchParams.set('sort', sortVal);
             window.history.pushState({}, '', url);
